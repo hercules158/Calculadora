@@ -2,6 +2,7 @@ package com.example.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import androidx.lifecycle.ViewModelProvider
 import com.example.calculadora.databinding.ActivityMainBinding
 import com.notkamui.keval.Keval
@@ -20,66 +21,102 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
+
         binding.button0.setOnClickListener{
-            viewModel.assemblyNum("0")
+            val cursorPosition = binding.textWrite.selectionEnd //Pego a posição do cursor no EditText
+            viewModel.assemblyNum("0", cursorPosition) //Envio a posição do cursos para saber onde inserir uma nova string
+            binding.textWrite.setSelection(cursorPosition+1) //Toda vez que digitar o local que irá inserir um novo número será na posição anterior do curso acrescido de 1
         }
         binding.button1.setOnClickListener{
-            viewModel.assemblyNum("1")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("1", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button2.setOnClickListener{
-            viewModel.assemblyNum("2")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("2", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button3.setOnClickListener{
-            viewModel.assemblyNum("3")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("3", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button4.setOnClickListener{
-            viewModel.assemblyNum("4")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("4", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button5.setOnClickListener{
-            viewModel.assemblyNum("5")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("5", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button6.setOnClickListener{
-            viewModel.assemblyNum("6")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("6", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button7.setOnClickListener{
-            viewModel.assemblyNum("7")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("7", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button8.setOnClickListener{
-            viewModel.assemblyNum("8")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("8", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.button9.setOnClickListener{
-            viewModel.assemblyNum("9")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("9", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.buttonAddition.setOnClickListener{
-            viewModel.assemblyNum("+")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("+", cursorPosition)
+            binding.textWrite.setSelection(binding.textWrite.length())
         }
         binding.buttonSubtraction.setOnClickListener{
-            viewModel.assemblyNum("-")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("-", cursorPosition)
+            binding.textWrite.setSelection(binding.textWrite.length())
         }
         binding.buttonTimes.setOnClickListener{
-            viewModel.assemblyNum("*")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("*", cursorPosition)
+            binding.textWrite.setSelection(binding.textWrite.length())
         }
         binding.buttonDivision.setOnClickListener{
-            viewModel.assemblyNum("/")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("/", cursorPosition)
+            binding.textWrite.setSelection(binding.textWrite.length())
         }
         binding.iconUndo.setOnClickListener{
-            viewModel.assemblyNum("<")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("<", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition-1)
         }
         binding.iconUndo.setOnLongClickListener {
-            viewModel.assemblyNum("~")
+            viewModel.assemblyNum("~", cursorPosition = 0)
             true
         }
         binding.buttonLeftBracket.setOnClickListener{
-            viewModel.assemblyNum("(")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("(", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.buttonRightBracket.setOnClickListener{
-            viewModel.assemblyNum(")")
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum(")", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         setObserver()
     }
     private fun setObserver() {
         viewModel.number.observe(this ) {
-            binding.textWrite.text = it
+            binding.textWrite.text = Editable.Factory.getInstance().newEditable(it)
+            binding.textWrite.showSoftInputOnFocus = false;
 
         }
         viewModel.result.observe(this) {

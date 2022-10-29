@@ -2,37 +2,48 @@ package com.example.calculadora
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.notkamui.keval.Keval
-import kotlin.math.pow
-
+import org.mariuszgromada.math.mxparser.Expression
 
 class MainViewModel : ViewModel() {
 
     val number = MutableLiveData("")
-    var result = MutableLiveData(0f)
+    var result = MutableLiveData("")
 
-    fun assemblyNum(digit: String) {
+    /*
+    O algoritmo de adicionar um número e remover separa a string em duas partes, a primeira metade
+    e a segunda metade a partir da posição em que o cursor está localizado, então dígito é adicionado
+    ou removido ao final da primeira parte da string
+    * */
 
-        number.value += digit
-
-        if ((digit == "<" && number.value != "")) {
-            number.value = number.value!!.dropLast(2)
+    fun assemblyNum(digit: String, cursorPosition: Int) {
+        var macrosPosition = cursorPosition
+        if (digit != "<" && digit != "~"){
+            var firstHalf = number.value?.dropLast(number!!.value!!.length!!.minus(macrosPosition))
+            val secondHalf = number.value?.drop(macrosPosition)
+            firstHalf += digit
+            number.value = firstHalf + secondHalf
+        }else if (macrosPosition == 0 && digit != "~" && digit != "<"){
+            number.value += digit
+        }else if ((digit == "<" && number.value != "")) {
+            var firstHalf = number.value?.dropLast(number!!.value!!.length!!.minus(cursorPosition))
+            val secondHalf = number.value?.drop(cursorPosition)
+            firstHalf = firstHalf?.dropLast(1)
+            number.value= firstHalf + secondHalf
         } else if (digit == "~") {
             number.value = ""
         }
-
         try {
             if (number.value!!.count { it == '(' } == number.value!!.count { it == ')' }) {
-                result.value = Keval.eval(number.value.toString()).toFloat() //Função adicionada com a biblioteca
+                val e = Expression(number.value.toString()) //Function from mxparse lib
+                result.value =  e.calculate().toString()
             }
-        } catch (e: Exception) {
-            null
-        }
+        } catch (e: Exception) {}
 
-        if (number.value == "") result.value = 0f
+        if (number.value == "") result.value = ""
 
     }
 
 }
+
+
 
