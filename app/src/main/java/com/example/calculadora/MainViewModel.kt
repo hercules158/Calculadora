@@ -16,28 +16,37 @@ class MainViewModel : ViewModel() {
     * */
 
     fun assemblyNum(digit: String, cursorPosition: Int) {
-        var macrosPosition = cursorPosition
-        if (digit != "<" && digit != "~"){
-            var firstHalf = number.value?.dropLast(number!!.value!!.length!!.minus(macrosPosition))
+        val macrosPosition = cursorPosition
+        if (digit != "<" && digit != "~") {
+            var firstHalf = number.value?.dropLast(number.value!!.length.minus(macrosPosition))
             val secondHalf = number.value?.drop(macrosPosition)
             firstHalf += digit
             number.value = firstHalf + secondHalf
-        }else if (macrosPosition == 0 && digit != "~" && digit != "<"){
+        } else if (macrosPosition == 0 && digit != "~" && digit != "<") {
             number.value += digit
-        }else if ((digit == "<" && number.value != "")) {
-            var firstHalf = number.value?.dropLast(number!!.value!!.length!!.minus(cursorPosition))
-            val secondHalf = number.value?.drop(cursorPosition)
-            firstHalf = firstHalf?.dropLast(1)
-            number.value= firstHalf + secondHalf
-        } else if (digit == "~") {
+        }
+        try {
+            if ((digit == "<" && number.value != "")) { //To erase a digit
+                var firstHalf = number.value?.dropLast(number.value!!.length.minus(cursorPosition))
+                val secondHalf = number.value?.drop(cursorPosition)
+                firstHalf = firstHalf?.dropLast(1)
+                number.value = firstHalf + secondHalf
+            }
+        } catch (e: Exception) {
+        }
+        if (digit == "~") {
             number.value = ""
         }
         try {
             if (number.value!!.count { it == '(' } == number.value!!.count { it == ')' }) {
                 val e = Expression(number.value.toString()) //Function from mxparse lib
-                result.value =  e.calculate().toString()
+                result.value = e.calculate().toString()
+                if (result.value == "NaN") {
+                    result.value = ""
+                }
             }
-        } catch (e: Exception) {}
+        } catch (e: Exception) {
+        }
 
         if (number.value == "") result.value = ""
 

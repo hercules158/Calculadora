@@ -12,7 +12,9 @@
     <string name="_9">9</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
-    <string name="times">*</string>
+    <string name="times">x</string>
     <string name="division">/</string>
     <string name="_0">0</string>
+    <string name="_pi">π</string>
+    <string name="_e">e</string>
 </resources>

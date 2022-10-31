@@ -72,30 +72,46 @@ class MainActivity : AppCompatActivity() {
             viewModel.assemblyNum("9", cursorPosition)
             binding.textWrite.setSelection(cursorPosition+1)
         }
+        binding.buttonPi.setOnClickListener{
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("pi", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+2)
+        }
+        binding.buttonE.setOnClickListener{
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("e", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
+        }
+        binding.buttonPoint.setOnClickListener{
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum(".", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
+        }
         binding.buttonAddition.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd
             viewModel.assemblyNum("+", cursorPosition)
-            binding.textWrite.setSelection(binding.textWrite.length())
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.buttonSubtraction.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd
             viewModel.assemblyNum("-", cursorPosition)
-            binding.textWrite.setSelection(binding.textWrite.length())
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.buttonTimes.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd
             viewModel.assemblyNum("*", cursorPosition)
-            binding.textWrite.setSelection(binding.textWrite.length())
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.buttonDivision.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd
             viewModel.assemblyNum("/", cursorPosition)
-            binding.textWrite.setSelection(binding.textWrite.length())
+            //binding.textWrite.setSelection(binding.textWrite.length())
+            binding.textWrite.setSelection(cursorPosition+1)
         }
         binding.iconUndo.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd
             viewModel.assemblyNum("<", cursorPosition)
-            binding.textWrite.setSelection(cursorPosition-1)
+            if(cursorPosition > 0){ binding.textWrite.setSelection(cursorPosition - 1) }
         }
         binding.iconUndo.setOnLongClickListener {
             viewModel.assemblyNum("~", cursorPosition = 0)
@@ -110,6 +126,26 @@ class MainActivity : AppCompatActivity() {
             val cursorPosition = binding.textWrite.selectionEnd
             viewModel.assemblyNum(")", cursorPosition)
             binding.textWrite.setSelection(cursorPosition+1)
+        }
+        binding.buttonPow.setOnClickListener{
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("^", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+1)
+        }
+        binding.buttonSqrt.setOnClickListener{
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("sqrt(", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+4)
+        }
+        binding.buttonSin.setOnClickListener{
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("sin(", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+4)
+        }
+        binding.buttonCos.setOnClickListener{
+            val cursorPosition = binding.textWrite.selectionEnd
+            viewModel.assemblyNum("cos(", cursorPosition)
+            binding.textWrite.setSelection(cursorPosition+4)
         }
         setObserver()
     }
