@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import androidx.lifecycle.ViewModelProvider
 import com.example.calculadora.databinding.ActivityMainBinding
-import com.notkamui.keval.Keval
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
 
         binding.button0.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd //Pego a posição do cursor no EditText
@@ -135,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         binding.buttonSqrt.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd
             viewModel.assemblyNum("sqrt(", cursorPosition)
-            binding.textWrite.setSelection(cursorPosition+4)
+            binding.textWrite.setSelection(cursorPosition+5)
         }
         binding.buttonSin.setOnClickListener{
             val cursorPosition = binding.textWrite.selectionEnd

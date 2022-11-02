@@ -40,7 +40,9 @@ class MainViewModel : ViewModel() {
         try {
             if (number.value!!.count { it == '(' } == number.value!!.count { it == ')' }) {
                 val e = Expression(number.value.toString()) //Function from mxparse lib
-                result.value = e.calculate().toString()
+
+                    result.value = e.calculate().toString()
+
                 if (result.value == "NaN") {
                     result.value = ""
                 }
